@@ -2,7 +2,7 @@
 
 ## Architecture
 
-![](https://imgur.com/gPySCmC)
+![](https://i.imgur.com/gPySCmC.jpg)
 
 ## Database design
-![](https://imgur.com/u2rHg5v)
+![](https://i.imgur.com/u2rHg5v.jpg)
