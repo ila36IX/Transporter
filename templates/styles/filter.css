@@ -1,0 +1,13 @@
+.container button {
+    color: #FFFFFF;
+    font-size: 18px;
+    height: 40px;
+    width: 10%;
+    background-color: #FF5A5F;
+    border-style: none;
+    border-radius: 50px;
+    float: right;
+    margin-top: 150px;
+    margin-right: 290px;
+
+}
