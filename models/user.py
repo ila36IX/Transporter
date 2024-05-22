@@ -9,6 +9,7 @@ from os import getenv
 import sqlalchemy
 from hashlib import md5
 from sqlalchemy import Column, String, Date, Integer, ForeignKey
+from sqlalchemy.orm import relationship
 from sqlalchemy import event
 
 
@@ -21,7 +22,12 @@ class User(BaseModel, Base):
     last_name = Column(String(128), nullable=True)
     phone = Column(String(128), nullable=True)
     birthday = Column(Date, nullable=True)
-    img_id = Column(Integer, ForeignKey('images.id'), nullable=True)
+    img_id = Column(
+        Integer, 
+        ForeignKey('images.id', name="fk_user_img"),
+        nullable=True
+    )
+    image = relationship("Image", uselist=False, cascade="all, delete-orphan", single_parent=True)
 
 
 def hash5(target, value, oldvalue, initiator):

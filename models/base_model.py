@@ -14,14 +14,10 @@ Base = declarative_base()
 class BaseModel:
     """A base class for all hbnb models"""
     # id = Column(Integer, nullable=False, primary_key=True, unique=True)
-    # The use of mapped_column if jsut to make the id alwys appear first
+    # The use of mapped_column is jsut to make the id always appear first
     id = mapped_column(Integer, nullable=False, primary_key=True, unique=True, sort_order=-1)
     created_at = Column(DateTime, nullable=False, default=datetime.utcnow())
     updated_at = Column(DateTime, nullable=False, default=datetime.utcnow())
-
-    # def __init__(self):
-    #     """Initialisation of a new model"""
-    #     # <name>_t referes to time
 
     def __str__(self):
         """Returns a string representation of the instance"""

@@ -1,17 +1,30 @@
 #!/usr/bin/python3
 """
-The storage engine where 
+This will include the storage connection abstraction.
+Information that will be used to connect to db will be read from the "env.json"
+file (should be located in / path).
+You can see its structure in "env.backup" file.
+Be aware that setting the WORKING_ENV key in the json file will cause dropping
+all the tables in db.
 """
-
-from models.base_model import Base
-# from models.city import City
-# from models.location import Location
 from models import *
+from models.base_model import Base
 from sqlalchemy import create_engine
 from sqlalchemy.orm import scoped_session, sessionmaker
 import sqlalchemy
 import json
 
+classes = {
+    "City" : City,
+    "Image" : Image,
+    "Location": Location,
+    "User": User,
+    "Customer": Customer,
+    "Vehicle": Vehicle,
+    "Driver": Driver,
+    "Delivery": Delivery,
+    "Item": Item
+}
 
 class DBStorage:
     """interaacts with the MySQL database"""
@@ -23,7 +36,13 @@ class DBStorage:
         URL = 'mysql+pymysql://{}:{}@{}/{}'.format(*self.get_vars())
         self.__engine = create_engine(URL)
         if self.env_type() == "test":
-            Base.metadata.drop_all(self.__engine)
+            print("This is a testing envirnment")
+            print("All the date will be destoryed!")
+            user_answer = input("Are you sure? [y/n]")
+            if user_answer == "y":
+                Base.metadata.drop_all(self.__engine)
+            else:
+                exit()
 
     def get_vars(self):
         "Get the config values to connect to database"
@@ -65,6 +84,11 @@ class DBStorage:
     def save(self):
         """commit all changes of the current database session"""
         self.__session.commit()
+
+    def save_all(self, obj_list:list):
+        """commit all changes of the current database session"""
+        for obj in obj_list:
+            obj.save()
 
     def delete(self, obj=None):
         """delete from the current database session obj if not None"""
@@ -108,7 +132,9 @@ class DBStorage:
         self.__session = Session
 
     def close(self):
-        """The session instance will no longer be part of the Session's pending
+        """
+        The session instance will no longer be part of the Session's pending
         objects, and any changes made to the instance will not be persisted to
-        the database when the Session is committed or flushed"""
+        the database when the Session is committed or flushed
+        """
         self.__session.remove()

@@ -14,6 +14,14 @@ from sqlalchemy.orm import relationship
 class Customer(BaseModel, Base):
     """Customers table"""
     __tablename__ = 'customers'
-    user_id = Column(Integer, ForeignKey('users.id'), nullable=False)
+    user_id = Column(
+        Integer,
+        ForeignKey('users.id', name="fk_user0customer"),
+        nullable=False
+    )
     company = Column(String(128), nullable=True)
-    user = relationship("User")
+    user = relationship(
+        "User",
+        cascade="all, delete-orphan",
+        single_parent=True
+    )

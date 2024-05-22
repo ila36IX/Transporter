@@ -6,21 +6,47 @@ from models.base_model import BaseModel, Base
 from os import getenv
 import sqlalchemy
 from hashlib import md5
-from sqlalchemy import Column, String, Date, Integer, ForeignKey
-import enum
-from sqlalchemy import Enum
+from sqlalchemy import Column, String, Date, Integer, ForeignKey, Enum
+from sqlalchemy.orm import relationship, backref
 from sqlalchemy import event
 
-class MyEnum(enum.Enum):
-    one = 1
-    two = 2
-    three = 3
 
-class User(BaseModel, Base):
+class Driver(BaseModel, Base):
     """Representation of a user """
-    __tablename__ = 'users'
-    user_id = Column(Integer, ForeignKey('users.id'), nullable=False)
-    vehicle_id = Column(Integer, ForeignKey('vehicles.id'), nullable=False)
-    current_location_id = Column(Integer, ForeignKey('locations.id'), nullable=False)
+    __tablename__ = 'drivers'
+    user_id = Column(
+        Integer,
+        ForeignKey('users.id', name="fk_dr_user"),
+        nullable=False
+    )
+    current_location_id = Column(
+        Integer,
+        ForeignKey('locations.id', name="fk_dr_loc"),
+        nullable=False
+    )
+    vehicle_id = Column(
+        Integer,
+        ForeignKey('vehicles.id', name="fk_dr_truck"),
+        nullable=False
+    )
     license_num = Column(String(128), nullable=True)
-    status = Column(ENUM(states)
+    status = Column(
+        Enum('enroute', 'inactive', 'available', name='status_enum'),
+        default="inactive"
+    )
+    vehicle = relationship(
+        "Vehicle",
+        backref=backref('driver', uselist=False),
+        cascade="all, delete-orphan",
+        uselist=False,
+        single_parent=True
+    )
+    location = relationship("Location")
+    user = relationship("User")
+    deliveries = relationship(
+        "Delivery",
+        backref="driver",
+        cascade="all, delete-orphan",
+        uselist=False,
+        single_parent=True
+    )

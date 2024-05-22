@@ -14,4 +14,8 @@ class Location(BaseModel, Base):
     """Location table"""
     __tablename__ = 'locations'
     name = Column(String(128), nullable=False)
-    city_id = Column(Integer, ForeignKey('cities.id'), nullable=False)
+    city_id = Column(
+        Integer, 
+        ForeignKey('cities.id', name="fk_city_loc"),
+        nullable=False
+    )
