@@ -27,7 +27,7 @@ class Delivery(BaseModel, Base):
     delivery_time = Column(Time, nullable=True)
     status = Column(
         Enum('pending', 'transiting', 'delivered', name='pending'),
-        default="inactive"
+        default="transiting"
     )
     item = relationship(
         "Item",

@@ -9,7 +9,7 @@ all the tables in db.
 """
 from models import *
 from models.base_model import Base
-from sqlalchemy import create_engine
+from sqlalchemy import create_engine, func
 from sqlalchemy.orm import scoped_session, sessionmaker
 import sqlalchemy
 import json
@@ -124,10 +124,22 @@ class DBStorage:
             return self.__session.query(cls).count()
         return sum([self.__session.query(c).count() for c in classes.values()])
 
+    def random(self, cls=None):
+        """counts the number of objects in storage"""
+        classname = cls
+        if type(cls) is str:
+            cls = classes.get(cls.capitalize())
+        if cls not in classes.values() or cls is None:
+            raise TypeError("Unkonwn type {}".format(classname))
+        if cls:
+            return self.__session.query(cls).order_by(func.rand()).first()
+        else:
+            return None
+
     def reload(self):
         """reloads data from the database"""
         Base.metadata.create_all(self.__engine)
-        sess_factory = sessionmaker(bind=self.__engine, expire_on_commit=False)
+        sess_factory = sessionmaker(bind=self.__engine, expire_on_commit=False, autoflush=False)
         Session = scoped_session(sess_factory)
         self.__session = Session
 

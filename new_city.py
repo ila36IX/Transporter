@@ -63,4 +63,5 @@ item.save()
 delivery = Delivery(pickup_time=time(15, 14), delivery_time=time(19, 00))
 delivery.item = item
 delivery.driver = driver
+delivery.save()
 print("OK")

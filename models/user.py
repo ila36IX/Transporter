@@ -35,6 +35,7 @@ def hash5(target, value, oldvalue, initiator):
     This precedure function that will be invoked where set new value to
     password event is triggered
     """
-    return md5(value.encode()).hexdigest()
+    # return md5(value.encode()).hexdigest()
+    return value
 
 event.listen(User.password, 'set', hash5, retval=True)

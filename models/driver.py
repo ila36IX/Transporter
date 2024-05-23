@@ -47,6 +47,5 @@ class Driver(BaseModel, Base):
         "Delivery",
         backref="driver",
         cascade="all, delete-orphan",
-        uselist=False,
         single_parent=True
     )
