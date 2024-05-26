@@ -4,7 +4,7 @@ User is represniting an account info that the driver and customer need to
 identify them selfs
  - A user could have a profile picture
 """
-from models.base_model import BaseModel, Base
+from models import *
 from os import getenv
 import sqlalchemy
 from hashlib import md5

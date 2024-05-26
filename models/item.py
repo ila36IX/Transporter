@@ -2,9 +2,8 @@
 """
 Will be added soon!
 """
-import models
 import sqlalchemy
-from models.base_model import BaseModel, Base
+from models import *
 from sqlalchemy import Column, String, Integer, ForeignKey, Text
 from sqlalchemy.orm import relationship
 

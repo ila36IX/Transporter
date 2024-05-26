@@ -2,9 +2,9 @@
 """Represets drivers table
 Driver is a 'user' that drives a vehicle
 """
-from models.base_model import BaseModel, Base
-from os import getenv
 import sqlalchemy
+from models import *
+from os import getenv
 from hashlib import md5
 from sqlalchemy import Column, String, Date, Integer, ForeignKey, Enum
 from sqlalchemy.orm import relationship, backref
@@ -48,4 +48,9 @@ class Driver(BaseModel, Base):
         backref="driver",
         cascade="all, delete-orphan",
         single_parent=True
+    )
+    ratings = relationship(
+        "Rating",
+        backref="driver",
+        cascade="all, delete-orphan",
     )

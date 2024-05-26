@@ -3,9 +3,8 @@
 The deliveries table
 A delivery is a driver transporting/transported an item of a costumer
 """
-import models
 import sqlalchemy
-from models.base_model import BaseModel, Base
+from models import *
 from sqlalchemy import Column, String, ForeignKey, Integer, Enum, Time
 from sqlalchemy.orm import relationship
 

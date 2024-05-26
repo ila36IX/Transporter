@@ -4,9 +4,8 @@ The customers table
 A customer is a user that can posts items and cargos that needed to be
 transport from city to other
 """
-import models
 import sqlalchemy
-from models.base_model import BaseModel, Base
+from models import *
 from sqlalchemy import Column, String, ForeignKey, Integer
 from sqlalchemy.orm import relationship
 
@@ -24,4 +23,9 @@ class Customer(BaseModel, Base):
         "User",
         cascade="all, delete-orphan",
         single_parent=True
+    )
+    ratings = relationship(
+        "Rating",
+        backref="customer",
+        cascade="all, delete-orphan",
     )

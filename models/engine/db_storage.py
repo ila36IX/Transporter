@@ -23,7 +23,8 @@ classes = {
     "Vehicle": Vehicle,
     "Driver": Driver,
     "Delivery": Delivery,
-    "Item": Item
+    "Item": Item,
+    "Rating": Rating
 }
 
 class DBStorage:
@@ -53,6 +54,8 @@ class DBStorage:
                 ENV_JSON["MYSQL_PWD"],
                 ENV_JSON["MYSQL_HOST"],
                 ENV_JSON["MYSQL_DB"],
+                ENV_JSON.get("API_HOST", "0.0.0.0"),
+                ENV_JSON.get("API_PORT", "5000")
             ]
             return envs
 
@@ -64,7 +67,7 @@ class DBStorage:
             ENV_JSON = json.load(f)
             return ENV_JSON.get("WORKING_ENV", None)
 
-    def all(self, cls=None):
+    def all_key_id(self, cls=None):
         """Select all from database if cls is None, Or select all the entities
         in the class and return a dict representaion of it
         """
@@ -76,6 +79,14 @@ class DBStorage:
                     key = obj.__class__.__name__ + '.' + obj.id
                     new_dict[key] = obj
         return (new_dict)
+
+    def all(self, model=None):
+        """Get list of all model records"""
+        model = self.get_model(model)
+        Q = self.__session.query(model)
+        records = self.dictify(Q.all())
+        print(records)
+        return records
 
     def new(self, obj):
         """add the object to the current database session"""
@@ -136,10 +147,52 @@ class DBStorage:
         else:
             return None
 
+    def starts_with(self, model=None, attr="", prefix=""):
+        """Get all records that thier attr is starts with prefix
+        Exemple:
+            - model is city
+            - attr is name
+            - prefix is a
+            will return all the cities with  name starting with prefix
+        """
+        model = self.get_model(model)
+        Q = self.__session.query(model)
+        if not hasattr(model, attr):
+            e = "{} has no attribute {}".format(model.__name__, attr)
+            raise AttributeError(e) 
+        exp = getattr(model, attr).ilike("{}%".format(prefix))
+        objs = Q.filter(exp).all()
+        objs = self.dictify(objs)
+        return objs
+
+    # def contains(self, model=None, attr="", exp_str=""):
+    #     model = self.get_model(model)
+    #     QUERY = self.__session.query(model)
+    #     if not hasattr(model, attr):
+    #         e = "{} has no attribute {}".format(model.__name__, attr)
+    #         raise AttributeError(e) 
+    #     exp = getattr(City, "name").ilike("{}%".format(prefix))
+    #     objs = QUERY.filter(exp).all()
+    #     objs = self.dictify(objs)
+    #     return objs
+
+    def get_model(self, model=None):
+        """Get model class by string or by model"""
+        classname = model
+        if type(model) is str:
+            model = classes.get(model.capitalize())
+        if model not in classes.values():
+            raise TypeError("Unkonwn type {}".format(classname))
+        return model
+
     def reload(self):
         """reloads data from the database"""
         Base.metadata.create_all(self.__engine)
-        sess_factory = sessionmaker(bind=self.__engine, expire_on_commit=False, autoflush=False)
+        sess_factory = sessionmaker(
+            bind=self.__engine,
+            expire_on_commit=False,
+            autoflush=False
+        )
         Session = scoped_session(sess_factory)
         self.__session = Session
 
@@ -150,3 +203,6 @@ class DBStorage:
         the database when the Session is committed or flushed
         """
         self.__session.remove()
+
+    def dictify(self, obj_list:list):
+        return [obj.to_dict() for obj in obj_list]

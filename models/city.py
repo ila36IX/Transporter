@@ -1,7 +1,7 @@
 #!/usr/bin/python
 """Representation of the cities table"""
-import models
 import sqlalchemy
+from models import *
 from models.base_model import BaseModel, Base
 from sqlalchemy import Column, String, ForeignKey
 from sqlalchemy.orm import relationship

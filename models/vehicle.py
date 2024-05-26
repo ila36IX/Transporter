@@ -3,9 +3,8 @@
 The vehicles table
 Vehicle is the machine the used by the driver to transport the items
 """
-import models
 import sqlalchemy
-from models.base_model import BaseModel, Base
+from models import *
 from sqlalchemy import Column, String, Integer, CheckConstraint, ForeignKey
 from sqlalchemy import Table
 from sqlalchemy.orm import relationship

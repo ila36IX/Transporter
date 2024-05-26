@@ -1,16 +1,34 @@
 #!/bin/env python3
+"""
+Seed a dummy data to the database
+"""
 from models import *
 from random import randrange, choice
-import requests
-import os
 from faker import Faker
+import os
+import requests
+import json
 
 f = Faker()
 cities_endpoint = "https://madina.ysnirix.xyz/api/cities?format=json"
 locations_endpoint = "https://madina.ysnirix.xyz/api/districts/{}?format=json"
 avatar = "https://api.dicebear.com/8.x/icons/svg?icon={}"
 class Seed():
+    """Seed testing data for every model
+    """
+    def __init__(self, reset=False):
+        self.reset = reset
+        if reset:
+            with open("env.json", "r") as f:
+                info = json.load(f) 
+            with open("env.json", "w") as f:
+                info["WORKING_ENV"] = "test"
+                json.dump(info, f, indent=4)
+
     def seed_cities_locations(self, many=30):
+        """seed the cities and locations
+            - many: many citeis to create
+        """
         r = requests.get(cities_endpoint)
         cities = r.json().get("results")
         for city in cities[:many]:
@@ -28,6 +46,7 @@ class Seed():
         print("locations, OK")
     
     def seed_vehcle_image(self, many=50):
+        """Get a random truck image, to assign it to a truck"""
         images = os.listdir(r"./static/images/trucks/")
         rand_img = choice(images)
         img = Image(img_path="./static/images/trucks/{}".format(rand_img))
@@ -36,6 +55,7 @@ class Seed():
         return img
 
     def seed_user(self):
+        """Seed a user"""
         avatars = [
             "boxes",
             "archive",
@@ -68,6 +88,7 @@ class Seed():
         return user
 
     def seed_customers(self, many=69):
+        """Seed desired 'many' customer"""
         print("Seeding Customers")
         for _ in range(many):
             customer = Customer(company=f.company())
@@ -76,6 +97,7 @@ class Seed():
         print("\nCustomers, OK")
 
     def seed_vehicle(self, many=69):
+        """Seed a one vehicle to db"""
         truck_models = [
             "Daimler",
             "Volvo",
@@ -103,6 +125,7 @@ class Seed():
         return vehicle
     
     def seed_drivers(self, many=69):
+        """Create 'many' drivers"""
         print("Seeding drivers")
         for _ in range(many):
             location = storage.random("location")
@@ -119,6 +142,7 @@ class Seed():
         print("\nDrivers, OK")
 
     def seed_item(self):
+        """Seed one item"""
         item = Item(
             description=f.paragraph(),
             weight=randrange(20, 15000),
@@ -128,6 +152,8 @@ class Seed():
         item.pickup = storage.random("Location")
         item.dropoff = storage.random("Location")
         item.owner = storage.random("Customer")
+        for _ in range(randrange(0, 15)):
+            item.images.append(self.seed_vehcle_image())
         item.save()
         print(".", end="")
         return item
@@ -147,17 +173,30 @@ class Seed():
             driver.save()
         print("\nOK")
 
-    def up(self):
+    def seed_ratings(self, many=69):
+        print("Seeding ratings")
+        for _ in range(many):
+            rate = Rating(
+                comment = f.text(),
+                rating = randrange(0, 5)
+            )
+            driver = storage.random("Driver")
+            rate.driver = driver
+            customer = storage.random("Customer")
+            rate.customer = customer
+            rate.save()
+
+        print("\nOK")
+
+    def up(self, customers=2, drivers=3, deliveries=10, ratings=30):
         """Seed all the antities"""
-        s.seed_cities_locations()
-        s.seed_customers(700)
-        s.seed_drivers(70)
-        s.seed_deliveries(9000)
+        self.seed_cities_locations()
+        self.seed_customers(customers)
+        self.seed_drivers(drivers)
+        self.seed_deliveries(deliveries)
+        self.seed_ratings(ratings)
 
 
-s = Seed()
 if __name__ == "__main__":
-    s.seed_cities_locations()
-    s.seed_customers(700)
-    s.seed_drivers(70)
-    s.seed_deliveries(9000)
+    s = Seed()
+    s.seed_deliveries(50)
