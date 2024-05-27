@@ -1,0 +1,12 @@
+body {
+  margin: 0;
+  padding: 0;
+  color: hsl(0, 23%, 82%);
+  font-size: 14px;
+  height: 800px;
+  /* background-image: url("images/truck.jpg");
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed; */
+}
