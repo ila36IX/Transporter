@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel="stylesheet" href="static/styles/body.css">
+  <link rel="stylesheet" href="static/styles/header.css">
+  <link rel="stylesheet" href="static/styles/cards.css">
+  <link rel="stylesheet" href="static/styles/search.css">
+  <title>Transporter</title>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+
+<body>
+  <header>
+    <div class="logo">
+    </div>
+    <nav>
+      <ul>
+        <li><a href="#">Home</a></li>
+        <li><a href="#">Drivers</a></li>
+        <li><a href="#">Costumers</a></li>
+        <li><a href="#">About us</a></li>
+      </ul>
+    </nav>
+  </header>
+  <style>
+    body {
+      background-image: url("static/images/truck.jpg");
+      background-position: center;
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+    }
+  </style>
+  <main>
+    <div class="searchBox">
+      <div class="Driver">
+        <input class="searchInput" type="text" name="" placeholder="Current city">
+        <div class="suggestions" id="current-city-suggestions"></div>
+      </div>
+      <div>
+        <input class="searchInput1" type="text" name="" placeholder="Distination">
+        <div class="suggestions" id="destination-suggestions"></div>
+      </div>
+      <button class="searchButton" href="#">
+        <i class="fas fa-search"></i>
+      </button>
+    </div>
+    <section class="container">
+      <div class="card">
+        <div class="card-details">
+          <p class="text-title">Drivers</p>
+          <p class="text-body">Tired of searching for your next job? 
+            Join Transporter's growing network and unlock a world of new opportunities! 
+            Find a variety of shipping options that fit your route and schedule, 
+            communicate directly with customers, 
+            and receive timely payments through our secure system.</p>
+        </div>
+        <button class="card-button" id="button-id">More info</button>
+      </div>
+      <div class="card">
+        <div class="card-details">
+          <p class="text-title">Costumers</p>
+          <p class="text-body">Struggling to find reliable drivers for your cargo needs? 
+            Look no further! Transporter connects you with a network of pre-vetted, 
+            experienced drivers who can handle any shipment, big or small. 
+            Get instant quotes, track your cargo in real-time, 
+            and enjoy peace of mind with secure online payments.</p>
+        </div>
+        <button class="card-button" id="button-ids">More info</button>
+      </div>
+    </section>
+  </main>
+  <footer>
+   
+  </footer>
+  <script src="static/scripts/mock.js"></script>
+  <script src="static/scripts/redirect1.js"></script>
+  <script src="static/scripts/redirect2.js"></script>
+</body>
+
+</html>

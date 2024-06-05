@@ -1,0 +1,7 @@
+body {
+  margin: 0;
+  padding: 0;
+  color: hsl(0, 23%, 82%);
+  font-size: 14px;
+  height: 800px;
+}

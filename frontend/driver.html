@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="static/styles/body.css">
+    <link rel="stylesheet" href="static/styles/header.css">
+    <link rel="stylesheet" href="static/styles/search.css">
+    <link rel="stylesheet" href="static/styles/input.css">
+    <title>Transporter</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <header>
+        <div class="logo"></div>
+        <nav>
+            <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="#">Drivers</a></li>
+                <li><a href="#">Customers</a></li>
+                <li><a href="#">About us</a></li>
+            </ul>
+        </nav>
+    </header>
+    <style>
+        body {
+            background-image: url("static/images/truck.jpg");
+            background-position: center;
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+        }
+    </style>
+    <main>
+        <div class="searchBox">
+            <div class="Driver">
+                <input class="searchInput" type="text" name="" placeholder="Current city">
+                <div class="suggestions" id="current-city-suggestions"></div>
+            </div>
+            <div>
+                <input class="searchInput1" type="text" name="" placeholder="Destination">
+                <div class="suggestions" id="destination-suggestions"></div>
+            </div>
+            <button class="searchButton" href="#">
+                <i class="fas fa-search"></i>
+            </button>
+        </div>
+        <div id="cards-container" class="cards-container">
+            <div class="card" style="display: none;">
+                <div class="avatar">
+                    <img src="https://via.placeholder.com/100" alt="Driver Avatar">
+                </div>
+                <div class="card-content">
+                    <h2 class="card-title">Driver Profile</h2>
+                    <div class="driver-info">
+                        <div class="driver-name">
+                            <h2>Name:</h2>
+                            <p class="driver-name-text"></p>
+                        </div>
+                        <div class="driver-truck">
+                            <h2>Truck:</h2>
+                            <p class="driver-truck-text"></p>
+                        </div>
+                        <div class="driver-license">
+                            <h2>License:</h2>
+                            <p class="driver-license-text"></p>
+                        </div>
+                        <div class="driver-location">
+                            <h2>Location:</h2>
+                            <p class="driver-location-text"></p>
+                        </div>
+                        <div class="toggle-border">
+                            <h2>Delivered:</h2>
+                            <input type="checkbox" id="one" class="delivered-checkbox">
+                            <label for="one">
+                                <div class="handle"></div>
+                            </label>
+                        </div>
+                        <div class="rating">
+                            <input type="radio" id="star-1" name="star-radio" value="star-1" class="star-radio">
+                            <label for="star-1">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                    <path d="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z"></path>
+                                </svg>
+                            </label>
+                            <input type="radio" id="star-2" name="star-radio" value="star-2" class="star-radio">
+                            <label for="star-2">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                    <path d="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z"></path>
+                                </svg>
+                            </label>
+                            <input type="radio" id="star-3" name="star-radio" value="star-3" class="star-radio">
+                            <label for="star-3">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                    <path d="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z"></path>
+                                </svg>
+                            </label>
+                            <input type="radio" id="star-4" name="star-radio" value="star-4" class="star-radio">
+                            <label for="star-4">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                    <path d="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z"></path>
+                                </svg>
+                            </label>
+                            <input type="radio" id="star-5" name="star-radio" value="star-5" class="star-radio">
+                            <label for="star-5">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                    <path d="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z"></path>
+                                </svg>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <footer>
+    </footer>
+    <script src="static/scripts/script.js"></script>
+    <script src="static/scripts/mock.js"></script>
+</body>
+</html>

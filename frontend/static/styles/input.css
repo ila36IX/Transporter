@@ -1,0 +1,194 @@
+.cards-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    gap: 1.5rem;
+    padding: 4rem;
+  }
+  
+.card {
+    --gray: rgb(255, 255, 255);
+    width: 350px;
+    height: 18rem;
+    display: flex;
+    align-items: flex-start;
+    grid-gap: 1.25rem;
+    gap: 1rem;
+    border-radius: 1rem;
+    background-color: white;
+    padding: 2.5rem;
+    opacity: 0.8;
+  }
+
+ .avatar{
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    overflow: hidden;
+  }
+
+  .avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .card-content {
+    padding: 10px;
+  }
+  .card-title {
+    font-size: 1.5em;
+    margin: 10px 0;
+    color: #333;
+  }
+.driver-info{
+    display: flex;
+    flex-direction: column;
+    color: rgb(64, 62, 62);
+    align-items: flex-start;
+}
+
+/*Name*/
+.driver-name {
+  border: 0px solid #f0ebeb;
+  border-radius: 190px;
+  margin-bottom: 10px;
+  padding: 1px 2px;
+  box-shadow: 0 0 0 2px #fbfbfb;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+ }
+ .driver-name h2{
+  margin-right: 60px;
+ }
+
+/*Truck*/
+.driver-truck {
+  border: 0px solid #f0ebeb;
+  border-radius: 190px;
+  margin-bottom: 10px;
+  padding: 1px 2px;
+  box-shadow: 0 0 0 2px #fbfbfb;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+ }
+ .driver-truck h2{
+  margin-right: 60px;
+ }
+
+ /*license*/
+ .driver-license {
+  border: 0px solid #f0ebeb;
+  border-radius: 190px;
+  margin-bottom: 10px;
+  padding: 1px 2px;
+  box-shadow: 0 0 0 2px #fbfbfb;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+ }
+ .driver-license h2{
+  margin-right: 60px;
+ }
+
+ /*location*/
+ .driver-location {
+  border: 0px solid #f0ebeb;
+  border-radius: 190px;
+  margin-bottom: 10px;
+  padding: 1px 2px;
+  box-shadow: 0 0 0 2px #fbfbfb;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+ }
+ .driver-location h2{
+  margin-right: 60px;
+ }
+
+/*Ratting*/
+.rating {
+  border: 0px solid white;
+  box-shadow: 0 0 0 2px #fbfbfb;
+  border-radius: 50px;
+  display: flex;
+  flex-direction: row-reverse;
+  gap: 0.3rem;
+  --stroke: #555151;
+  --fill: #ffc73a;
+}
+
+.rating input {
+  appearance: unset;
+}
+
+.rating label {
+  cursor: pointer;
+}
+
+.rating svg {
+  width: 2rem;
+  height: 2rem;
+  overflow: visible;
+  fill: transparent;
+  stroke: var(--stroke);
+  stroke-linejoin: bevel;
+  stroke-dasharray: 12;
+  animation: idle 4s linear infinite;
+  transition: stroke 0.2s, fill 0.5s;
+}
+
+.rating input:checked ~ label svg {
+  transition: 0s;
+  animation: idle 4s linear infinite, yippee 0.75s backwards;
+  fill: var(--fill);
+  stroke: var(--fill);
+  stroke-opacity: 0;
+  stroke-dasharray: 0;
+  stroke-linejoin: miter;
+  stroke-width: 8px;
+}
+
+/*delivred*/
+.toggle-border {
+    border: 0px solid #f0ebeb;
+    border-radius: 190px;
+    margin-bottom: 30px;
+    padding: 1px 2px;
+    box-shadow: 0 0 0 2px #fbfbfb;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+   }
+   .toggle-border h2 {
+    margin-right: 60px;
+   }
+   
+   .toggle-border:last-child {
+    margin-bottom: 0;
+   }
+   
+   .toggle-border input[type="checkbox"] {
+    display: none;
+   }
+   
+   .toggle-border label {
+    position: relative;
+    display: inline-block;
+    width: 65px;
+    height: 20px;
+    background: #d13613;
+    border-radius: 80px;
+    cursor: pointer;
+    box-shadow: inset 0 0 16px rgba(0,0,0,.3);
+    transition: background .5s;
+   }
+   
+   .toggle-border input[type="checkbox"]:checked + label {
+    background: #13d162;
+   }
+   .toggle-border input[type="checkbox"]:checked + label > .handle {
+    left: calc(100% - 35px + 10px);
+   }
